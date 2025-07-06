@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  hku-env:
+    build: .
+    container_name: hku-docker-env
+    volumes: []
+      # Optional: Mount SSH keys from host if needed
+      # - ~/.ssh:/root/.ssh:ro
+    environment:
+      - PYTHONPATH=/workspace-drw-comp
+    working_dir: /workspace-drw-comp
+    stdin_open: true
+    tty: true
+    # For development, you can expose ports if needed
+    # ports:
+    #   - "8888:8888"  # Jupyter notebook
+    #   - "5000:5000"  # Flask app
+    restart: unless-stopped 

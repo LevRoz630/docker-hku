@@ -1,0 +1,37 @@
+# SSH Keys (CRITICAL - never commit private keys!)
+docker-hku-ssh
+docker-hku-ssh.pub
+hku-comp-ssh-docker
+hku-comp-ssh-docker.pub
+
+# Docker
+.dockerignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+ 
