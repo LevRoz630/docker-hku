@@ -23,7 +23,7 @@ This Docker image sets up a shared dev environment for the HKU competition proje
 
 **Build the image (using buildkit and secret token):**  
 ```bash
-DOCKER_BUILDKIT=1 docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env .
+$env:DOCKER_BUILDKIT=1; docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env .
 
 
 #Run the container:
