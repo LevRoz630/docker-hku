@@ -7,7 +7,7 @@ This Docker image sets up a shared dev environment for the HKU competition proje
 ## What is this?
 
 - Clones both `hku-data` and `hku-comp-fix` repos automatically on build using a GitHub token  
-- Python 3.11 with all required dependencies pre-installed  
+- Python 3.11 with all required dependencies pre-installed  in a uv venv
 - Everyone works in the same environment  
 - Git LFS support for large data files  
 
