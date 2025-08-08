@@ -22,7 +22,7 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
     GIT_LFS_SKIP_SMUDGE=1 git clone https://$GITHUB_TOKEN@github.com/LevRoz630/hku-data.git /workspace-hku/hku-data
 
 # Pull LFS files separately with retry logic and verification
-RUN cd /workspace-drw-comp/hku-data && \
+RUN cd /workspace-hku/hku-data && \
     echo "Verifying Git LFS installation..." && \
     git lfs version && \
     echo "Starting LFS pull with retry logic..." && \
@@ -38,7 +38,7 @@ RUN cd /workspace-drw-comp/hku-data && \
 
 # Install Python requirements
 RUN git checkout develop
-RUN pip install -r /workspace-drw-comp/hku-comp-fix/requirements.txt
+RUN pip install -r /workspace-hku/hku-comp-fix/requirements.txt
 
 # Install additional useful tools
 RUN apt-get update && apt-get install -y \
