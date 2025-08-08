@@ -37,9 +37,9 @@ RUN cd /workspace-hku/hku-data && \
     git lfs ls-files
 
 # Install Python requirements
-RUN git checkout develop
-RUN pip install -r /workspace-hku/hku-comp-fix/requirements.txt
-
+RUN cd /workspace-hku/hku-comp-fix && \
+    git checkout develop && \
+    pip install -r requirements.txt
 # Install additional useful tools
 RUN apt-get update && apt-get install -y \
     vim \
