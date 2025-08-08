@@ -21,10 +21,33 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
     git clone https://$GITHUB_TOKEN@github.com/LevRoz630/hku-comp-fix.git /workspace-hku/hku-comp-fix && \
     GIT_LFS_SKIP_SMUDGE=1 git clone https://$GITHUB_TOKEN@github.com/LevRoz630/hku-data.git /workspace-hku/hku-data
 
-RUN cd /workspace-hku/hku-data && git lfs pull --include="*.parquet,*.csv"
+# Pull LFS files separately with retry logic and verification
+RUN cd /workspace-drw-comp/hku-data && \
+    echo "Verifying Git LFS installation..." && \
+    git lfs version && \
+    echo "Starting LFS pull with retry logic..." && \
+    for i in 1 2 3; do \
+        echo "Attempt $i to pull LFS files..." && \
+        git lfs pull --include="*.parquet,*.csv" && \
+        echo "LFS pull successful on attempt $i" && \
+        break || \
+        (echo "Attempt $i failed, waiting before retry..." && sleep 30); \
+    done && \
+    echo "Verifying LFS files were downloaded..." && \
+    git lfs ls-files
 
-WORKDIR /workspace-hku/hku-comp-fix
+# Install Python requirements
+RUN git checkout develop
+RUN pip install -r /workspace-drw-comp/hku-comp-fix/requirements.txt
 
-RUN uv venv && uv pip install -r requirements.txt
+# Install additional useful tools
+RUN apt-get update && apt-get install -y \
+    vim \
+    nano \
+    curl \
+    wget \
+    tree \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["/bin/bash"]
