@@ -7,27 +7,34 @@ This Docker image sets up a shared dev environment for the HKU competition proje
 ## What is this?
 
 - Clones both `hku-data` and `hku-comp-fix` repos automatically on build using a GitHub token  
-- Python 3.11 with all required dependencies pre-installed  in a uv venv
+- Python 3.11 with all required dependencies pre-installed in a uv venv
+- **GPU acceleration support** with CUDA 12.1, PyTorch, TensorFlow, and CuPy
 - Everyone works in the same environment  
 - Git LFS support for large data files  
 
 ## What's inside
 
+- **CUDA 12.1 runtime** for GPU acceleration
 - Python 3.11 and essential packages  
 - Git and Git LFS configured  
 - Pre-installed: pandas, numpy, scikit-learn, pyarrow, psutil, jupyter  
+- **GPU frameworks**: PyTorch (CUDA), TensorFlow (GPU), CuPy (CUDA)
 - Tools: vim, nano, curl, wget, tree, htop  
 - Both repos cloned into `/workspace-hku/`  
 
 ## Quick Start
 
-**Build the image (using buildkit and secret token):**  
+**Build the GPU-enabled image (using buildkit and secret token):**  
 ```bash
 Windows PowerShell:
-$env:DOCKER_BUILDKIT=1; docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env  .
+$env:DOCKER_BUILDKIT=1; docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env-gpu  .
 
 Linux:
-DOCKER_BUILDKIT=1 docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env  .
+DOCKER_BUILDKIT=1 docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-docker-env-gpu  .
 
-#Run the container:
-docker run -it --rm hku-docker-env
+# Run the container with GPU access:
+docker run --gpus all -it --rm hku-docker-env-gpu
+
+# Test GPU acceleration:
+python gpu_test.py
+```
