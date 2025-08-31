@@ -19,6 +19,7 @@ This Docker image sets up a shared dev environment for the HKU competition proje
 - Git and Git LFS configured  
 - Pre-installed: pandas, numpy, scikit-learn, pyarrow, psutil, jupyter  
 - **GPU frameworks**: PyTorch (CUDA), TensorFlow (GPU), CuPy (CUDA)
+- **RAPIDS 25.8**: cuDF, cuML, cuGraph, cuxfilter, cuCIM, cuVS
 - Tools: vim, nano, curl, wget, tree, htop  
 - Both repos cloned into `/workspace-hku/`  
 
@@ -37,4 +38,7 @@ docker run --gpus all -it --rm hku-docker-env-gpu
 
 # Test GPU acceleration:
 python gpu_test.py
+
+# Test RAPIDS (cuDF/cuML):
+python -c "import cudf, cuml; print('cuDF', cudf.__version__, 'cuML', cuml.__version__)"
 ```
