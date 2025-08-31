@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM nvidia/cuda:12.5.0-runtime-ubuntu22.04
+FROM nvidia/cuda:12.5.0-devel-ubuntu22.04
 
 # Set environment variables for CUDA and GPU optimization
 ENV DEBIAN_FRONTEND=noninteractive
