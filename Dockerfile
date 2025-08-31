@@ -34,10 +34,6 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN git lfs install
 RUN pip3 install uv
 
-# Configure git (stable - cache this layer)
-RUN git config --global user.name "LevRoz630" && \
-    git config --global user.email "l.rozanov@outlook.com"
-
 # Install GPU frameworks (stable - cache this layer)
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 RUN pip3 install tensorflow[gpu]
