@@ -34,14 +34,17 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN git lfs install
 RUN pip3 install uv
 
-# Configure git (stable - cache this layer)
-RUN git config --global user.name "LevRoz630" && \
-    git config --global user.email "l.rozanov@outlook.com"
-
 # Install GPU frameworks (stable - cache this layer)
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 RUN pip3 install tensorflow[gpu]
 RUN pip3 install cupy-cuda12x
+
+# Install RAPIDS 25.8 (cuDF, cuML, cuGraph, cuCIM, cuVS, etc.)
+RUN pip3 install --extra-index-url=https://pypi.nvidia.com \
+    "cudf-cu12==25.8.*" "dask-cudf-cu12==25.8.*" "cuml-cu12==25.8.*" \
+    "cugraph-cu12==25.8.*" "nx-cugraph-cu12==25.8.*" "cuxfilter-cu12==25.8.*" \
+    "cucim-cu12==25.8.*" "pylibraft-cu12==25.8.*" "raft-dask-cu12==25.8.*" \
+    "cuvs-cu12==25.8.*"
 
 # Clone repos (changes frequently - put last)
 RUN --mount=type=secret,id=GITHUB_TOKEN \
@@ -72,5 +75,6 @@ RUN cd /workspace-hku/hku-comp-fix && \
 # Verify installations (stable - cache this layer)
 RUN python3 -c "import torch; print(f'PyTorch {torch.__version__} with CUDA {torch.version.cuda}')"
 RUN python3 -c "import tensorflow as tf; print(f'TensorFlow {tf.__version__}')"
+RUN python3 -c "import cudf; print(f'cuDF {cudf.__version__}')"
 
 CMD ["/bin/bash"]
