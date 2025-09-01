@@ -36,9 +36,6 @@ DOCKER_BUILDKIT=1 docker build --secret id=GITHUB_TOKEN,src=./token.txt -t hku-d
 # Run the container with GPU access:
 docker run --gpus all -it --rm hku-docker-env-gpu
 
-# Test GPU acceleration:
-python gpu_test.py
-
 # Test RAPIDS (cuDF/cuML):
 python -c "import cudf, cuml; print('cuDF', cudf.__version__, 'cuML', cuml.__version__)"
 ```
