@@ -69,7 +69,7 @@ RUN cd /workspace-hku/hku-data && \
 
 # Install Python requirements (changes frequently - put last)
 RUN cd /workspace-hku/hku-comp-fix && \
-    git checkout develop && \
+    git checkout main && \
     pip3 install -r requirements.txt
 
 # Verify installations (stable - cache this layer)
